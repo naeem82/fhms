@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 public class Purchase {
 	private int id;
 	private Customer customer;
-	List<Cow> cows;
+	private List<Cow> cows;
 	private Date purchaseDate;
 	private Double price;
 	private String description;
