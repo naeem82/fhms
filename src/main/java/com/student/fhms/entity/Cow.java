@@ -1,25 +1,38 @@
 package com.student.fhms.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="cow")
 public class Cow {
 	@Id
-	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
+	@Column(name="color")
 	private String color;
+	@Column(name="age")
 	private int age;
+	@Column(name="gender")
 	private String gender;
+	@Column(name="dob")
 	private Date dob;
+	@OneToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JoinColumn(name="cow_id")
+	private List<CowPictures> cowPictures;
 	public Cow() {
 		
 	}
@@ -63,6 +76,19 @@ public class Cow {
 	@Override
 	public String toString() {
 		return "Cow [id=" + id + ", color=" + color + ", age=" + age + ", gender=" + gender + ", dob=" + dob + "]";
+	}
+	
+	public void add(CowPictures cowPicture){
+		if(cowPictures==null){
+			cowPictures=new ArrayList<>();
+		}
+		cowPictures.add(cowPicture);
+	}
+	public List<CowPictures> getCowPictures() {
+		return cowPictures;
+	}
+	public void setCowPictures(List<CowPictures> cowPictures) {
+		this.cowPictures = cowPictures;
 	}
 	
 	

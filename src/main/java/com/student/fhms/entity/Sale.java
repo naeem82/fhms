@@ -3,15 +3,43 @@ package com.student.fhms.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="sale")
 public class Sale {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
+	@OneToOne(fetch=FetchType.EAGER,cascade={CascadeType.DETACH,
+											 CascadeType.MERGE,
+											 CascadeType.PERSIST,
+											 CascadeType.REFRESH})
+	@JoinColumn(name="customer_id")	
 	private Customer customer;
+	
+	@OneToMany(fetch=FetchType.LAZY,cascade={CascadeType.DETACH,
+											 CascadeType.MERGE,
+											 CascadeType.PERSIST,
+											 CascadeType.REFRESH})
+	@JoinColumn(name="cow_id")
 	private List<Cow> cows;
+	@Column(name="sale_date")
 	private Date saleDate;
+	@Column(name="sale_price")
 	private double salePrice;
+	@Column(name="description")
 	private String description;
 	public Sale(){
 		
