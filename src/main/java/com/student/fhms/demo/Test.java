@@ -19,8 +19,8 @@ public class Test {
 	private void start(String[] args) {
 		AnnotationConfigApplicationContext context = 
              new AnnotationConfigApplicationContext(AppConfig.class);
-		String message=context.getBean("showMessage",String.class);
-        System.out.println("The method of my Bean: " +message);
+		//String message=context.getBean("showMessage",String.class);
+       // System.out.println("The method of my Bean: " +message);
     }
 
 }
