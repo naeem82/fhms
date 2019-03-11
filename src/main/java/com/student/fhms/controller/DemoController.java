@@ -13,10 +13,10 @@ public class DemoController {
 	 private CowService cowService;
 	@RequestMapping("/")
 	public String welcome(){
-		Cow cow=new Cow("red", 7, "MALE", null);
-		cowService.saveCow(cow);
+		//Cow cow=new Cow("red", 7, "MALE", null);
+	//	cowService.saveCow(cow);
 		System.out.println("-----------------------Object have been saved----------------------------");
-		return "welcom";
+		return "welcome";
 	}
 
 }

@@ -8,51 +8,48 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.student.fhms.entity.Cow;
+import com.student.fhms.entity.Purchase;
 
 @Repository
-public class CowDAOImpl implements CowDAO {
+public class PurchaseDAOImpl implements PurchaseDAO {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public List<Cow> getCows() {
+	public List<Purchase> getPurchases() {
 		Session session=sessionFactory.getCurrentSession();
-		Query<Cow> query=session.createQuery("from  Cow",Cow.class);
-		List<Cow> cows=query.getResultList();
-		return cows;
+		Query<Purchase> query=session.createQuery("from Purchase",Purchase.class);
+		List<Purchase> purchases=query.getResultList();
+		return purchases;
+	}
+	
+
+	@Override
+	public Purchase getPurchase(int id) {
+		Session session=sessionFactory.getCurrentSession();
+		Purchase purchase=session.get(Purchase.class, id);
+		return purchase;
 	}
 
 	@Override
-	public Cow getCow(int id) {
+	public void savePurchase(Purchase purchase) {
 		Session session=sessionFactory.getCurrentSession();
-		Cow cow=session.get(Cow.class, id);
-		return cow;
-	}
-
-	@Override
-	public void saveCow(Cow cow) {
-		Session session=sessionFactory.getCurrentSession();
-		session.saveOrUpdate(cow);
+		session.saveOrUpdate(purchase);
 
 	}
 
 	@Override
-	public void deleteCow(int id) {
+	public void deletePurchase(int id) {
 		Session session=sessionFactory.getCurrentSession();
-		//Cow cow=new Cow();
-		//cow.setId(id);  // it weill take more time first it update the db and then delete object
-		//session.delete(cow);// we will use hibernate query Language becoz it is more efficient
-		Query query=session.createQuery("delete from Cow where id=:theId");
+		Query query=session.createQuery("delete from Purchase where id=:theId");
 		query.setParameter("theId", id);
 		query.executeUpdate();
-		
 
 	}
 
 	@Override
-	public List<Cow> searchCow(String theSearchName) {
+	public List<Purchase> searchPurchase(String theSearchName) {
 		// TODO Auto-generated method stub
 		return null;
 	}

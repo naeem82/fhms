@@ -8,20 +8,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.student.fhms.dao.CowDAO;
 import com.student.fhms.entity.Cow;
-@Service("cowService")
+@Service
 public class CowServiceImpl implements CowService {
 	@Autowired
 	private CowDAO cowDAO;
 	@Override
+	@Transactional
 	public List<Cow> getCows() {
-		// TODO Auto-generated method stub
-		return null;
+		return cowDAO.getCows();
 	}
 
 	@Override
+	@Transactional
 	public Cow getCow(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return cowDAO.getCow(id);
 	}
 
 	@Override
@@ -32,12 +32,14 @@ public class CowServiceImpl implements CowService {
 	}
 
 	@Override
-	public void deleteCow() {
-		// TODO Auto-generated method stub
+	@Transactional
+	public void deleteCow(int id) {
+		cowDAO.deleteCow(id);
 
 	}
 
 	@Override
+	@Transactional
 	public List<Cow> searchCow(String theSearchName) {
 		// TODO Auto-generated method stub
 		return null;
