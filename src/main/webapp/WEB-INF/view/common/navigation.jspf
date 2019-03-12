@@ -7,6 +7,8 @@
           <li class="active"><a href="${pageContext.request.contextPath }/">Home</a></li>
           <li><a href="${pageContext.request.contextPath}/showCows">COWS</a></li>
           <li><a href="${pageContext.request.contextPath}/showCowPictureForm">Cow Picture</a></li>
+           <li><a href="${pageContext.request.contextPath}/showPurchaseForm">Purchase Cow</a></li>
+           <li><a href="${pageContext.request.contextPath}/showSaleForm">Sale Cow</a></li>
      </ul>
      <ul class="nav navbar-nav navbar-right">
          <li><a href="/logout">Logout</a></li>

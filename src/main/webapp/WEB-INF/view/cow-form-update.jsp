@@ -46,6 +46,26 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label class="control-label col-sm-2" for="cowType">Cow
+										Type:</label>
+									<div class="col-sm-3">
+										<form:select path="cowType" class="form-control" id="cowType">
+
+
+											<option value="select">Select</option>
+											<option value="born"
+												<c:if test="${cowAndPictureDTO.cowType=='born'}">selected="selected"</c:if>>Born</option>
+											<option value="purchased"
+												<c:if test="${cowAndPictureDTO.cowType=='purchased'}">selected="selected"</c:if>>Purchased</option>
+
+
+
+
+										</form:select>
+									</div>
+								</div>
+
+								<div class="form-group">
 									<label class="control-label col-sm-2" for="color">Color:</label>
 									<div class="col-sm-6">
 										<form:input type="text" path="color" class="form-control"
@@ -56,27 +76,15 @@
 
 								<div class="form-group">
 									<label class="control-label col-sm-2" for="gender">Gender:</label>
-									<div class="col-sm-2">
+									<div class="col-sm-3">
 										<form:select path="gender" class="form-control" id="gender">
-											<c:choose>
 
-												<c:when test="${cowAndPictureDTO.gender=='male'}">
-													<option value="select">Select</option>
-													<option value="male" selected="selected">Male</option>
-													<option value="female">Female</option>
-												</c:when>
-												<c:when test="${cowAndPictureDTO.gender=='female'}">
-													<option value="select">Select</option>
-													<option value="male">Male</option>
-													<option value="female" selected="selected">Female</option>
-												</c:when>
-												<c:otherwise>
-												<option value="select">Select</option>
-													<option value="male">Male</option>
-													<option value="female">Female</option>
-												
-												</c:otherwise>
-											</c:choose>
+
+											<option value="select">Select</option>
+											<option value="male"
+												<c:if test="${cowAndPictureDTO.gender=='male'}"> selected="selected"  </c:if>>Male</option>
+											<option value="female"
+												<c:if test="${cowAndPictureDTO.gender=='female'}"> selected="selected"  </c:if>>Female</option>
 
 										</form:select>
 									</div>

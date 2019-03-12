@@ -17,6 +17,7 @@ public class CowAndPictureDTO {
 
 	private int id;
 	private String cowTagNo;
+	private String cowType;
 	private String color;
 	private int age;
 	private String gender;
@@ -50,6 +51,14 @@ public class CowAndPictureDTO {
 	}
 
 	
+
+	public String getCowType() {
+		return cowType;
+	}
+
+	public void setCowType(String cowType) {
+		this.cowType = cowType;
+	}
 
 	public CowAndPictureDTO() {
 
@@ -145,7 +154,7 @@ public class CowAndPictureDTO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Cow cow = new Cow(id,cowTagNo, color, age, gender, theDob);
+		Cow cow = new Cow(id,cowTagNo,cowType, color, age, gender, theDob);
 		return cow;
 
 	}
@@ -176,6 +185,7 @@ public class CowAndPictureDTO {
 			
 			 setId(cow.getId());
 			  setCowTagNo(cow.getCowTagNo());
+			  setCowType(cow.getCowType());
 			 setColor(cow.getColor());
 			setAge(cow.getAge());
 			  setGender(cow.getGender());

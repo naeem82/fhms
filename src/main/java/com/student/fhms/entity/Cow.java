@@ -27,6 +27,8 @@ public class Cow {
 	private int id;
 	@Column(name="cow_tag_no")
 	private String cowTagNo;
+	@Column(name="cow_type")
+	private String cowType;
 	@Column(name="color")
 	private String color;
 	@Column(name="age")
@@ -44,16 +46,19 @@ public class Cow {
 	public Cow(){
 		
 	}
-	public Cow(int id,String cowTagNo,String color, int age, String gender, Date dob) {
+	public Cow(int id,String cowTagNo,String cowType,String color, int age, String gender, Date dob) {
 		this.id=id;
-		this.cowTagNo=cowTagNo;
+		this.cowTagNo=cowTagNo; 
+		this.cowType=cowType;
 		this.color = color;
 		this.age = age;
 		this.gender = gender;
 		this.dob = dob;
+		
 	}
-	public Cow(String cowTagNo,String color, int age, String gender, Date dob) {
+	public Cow(String cowTagNo,String cowType,String color, int age, String gender, Date dob) {
 		this.cowTagNo=cowTagNo;
+		this.cowType=cowType;
 		this.color = color;
 		this.age = age;
 		this.gender = gender;
@@ -71,6 +76,13 @@ public class Cow {
 	}
 	public void setCowTagNo(String cowTagNo) {
 		this.cowTagNo = cowTagNo;
+	}
+	
+	public String getCowType() {
+		return cowType;
+	}
+	public void setCowType(String cowType) {
+		this.cowType = cowType;
 	}
 	public String getColor() {
 		return color;

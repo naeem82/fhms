@@ -53,7 +53,7 @@ public class CowPictureController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Cow cow=new Cow("777","red", 7, "MALE", null);
+		Cow cow=new Cow("777","born","red", 7, "MALE", null);
 		cow.add(cowPicture);
 		cowPicture.setFilePath("abc");
 		cow.add(cowPicture);
