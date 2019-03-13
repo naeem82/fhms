@@ -2,6 +2,7 @@ package com.student.fhms.dao;
 
 import java.util.List;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -55,6 +56,29 @@ public class CowDAOImpl implements CowDAO {
 	public List<Cow> searchCow(String theSearchName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Cow> getPurchasedCows() {
+		
+		Session session=sessionFactory.getCurrentSession();
+//		String sql2="FROM Cow c WHERE c.cowType='purchased' AND NOT EXISTS ( "+
+//					"FROM Purchase p WHERE purchase "
+		String sql="select * from cow "+
+					"where cow_type='purchased' AND purchase_id is  null";
+		List<Cow> cows=session.createNativeQuery(sql,Cow.class).list();
+		return cows;
+		
+	}
+
+	@Override
+	public List<Cow> getSaleableCows() {
+		Session session=sessionFactory.getCurrentSession();
+		String sql="select * from cow "+
+				   " where( (cow_type='born' and sale_id is null ) "+
+				   " OR (cow_type='purchased' and  purchase_id is not null)AND (sale_id is null))";
+	List<Cow> cows=session.createNativeQuery(sql,Cow.class).list();
+	return cows;
 	}
 
 }

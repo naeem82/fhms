@@ -49,7 +49,7 @@
 										<form:select path="cowType" class="form-control" id="cowType">
 											<option value="select">Select</option>
 											<option value="born">Born</option>
-											<option value="purchase">Purchased</option>
+											<option value="purchased">Purchased</option>
 										</form:select>
 									</div>
 								</div>

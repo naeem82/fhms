@@ -45,4 +45,18 @@ public class CowServiceImpl implements CowService {
 		return null;
 	}
 
+	@Override
+	@Transactional
+	public List<Cow> getPurchasedCows() {
+		
+		return cowDAO.getPurchasedCows();
+	}
+
+	@Override
+	@Transactional
+	public List<Cow> getSaleableCows() {
+		
+		return cowDAO.getSaleableCows();
+	}
+
 }

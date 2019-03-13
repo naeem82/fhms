@@ -21,7 +21,6 @@ public class CowAndPictureDTO {
 	private String color;
 	private int age;
 	private String gender;
-	
 	private String dob;
 	private int picId;
 	private MultipartFile file;

@@ -10,5 +10,7 @@ public interface CowDAO {
 	public void saveCow(Cow cow);
 	public void deleteCow(int id);
 	public List<Cow> searchCow(String theSearchName);
+	public List<Cow> getPurchasedCows();
+	public List<Cow> getSaleableCows();
 
 }

@@ -1,6 +1,7 @@
 package com.student.fhms.entity;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -33,7 +34,7 @@ public class Sale {
 											 CascadeType.MERGE,
 											 CascadeType.PERSIST,
 											 CascadeType.REFRESH})
-	@JoinColumn(name="cow_id")
+	@JoinColumn(name="sale_id")
 	private List<Cow> cows;
 	@Column(name="sale_date")
 	private Date saleDate;
@@ -91,6 +92,12 @@ public class Sale {
 	public String toString() {
 		return "Sale [id=" + id + ", customer=" + customer + ", cows=" + cows + ", saleDate=" + saleDate
 				+ ", salePrice=" + salePrice + ", description=" + description + "]";
+	}
+	public void addCow(Cow cow){
+		if(cows==null){
+			cows=new LinkedList<>();
+		}
+		cows.add(cow);
 	}
 	
 	

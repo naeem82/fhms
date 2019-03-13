@@ -1,5 +1,6 @@
 package com.student.fhms.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class Purchase {
 											 CascadeType.MERGE,
 											 CascadeType.PERSIST,
 											 CascadeType.REFRESH})
-	@JoinColumn(name="cow_id")
+	@JoinColumn(name="purchase_id")
 	private List<Cow> cows;
 	@Column(name="purchase_date")
 	private Date purchaseDate;
@@ -93,6 +94,12 @@ public class Purchase {
 	public String toString() {
 		return "Purchase [id=" + id + ", customer=" + customer + ", cows=" + cows + ", purchaseDate=" + purchaseDate
 				+ ", price=" + price + ", description=" + description + "]";
+	}
+	public void addCow(Cow cow){
+		if(cows==null){
+			cows=new ArrayList<>();
+		}
+		cows.add(cow);
 	}
 	
 		
