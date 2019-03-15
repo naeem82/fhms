@@ -10,5 +10,6 @@ public interface PurchaseService {
 	public void savePurchase(Purchase purchase);
 	public void deletePurchase(int id);
 	public List<Purchase> searchPurchase(String theSearchName);
+	public List<Purchase> getPurchaseInformationCowsThatAreNotSold();
 
 }

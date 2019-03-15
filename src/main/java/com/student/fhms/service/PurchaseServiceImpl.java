@@ -46,4 +46,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseDAO.searchPurchase(theSearchName);
 	}
 
+	@Override
+	@Transactional
+	public List<Purchase> getPurchaseInformationCowsThatAreNotSold() {
+		
+		return purchaseDAO.getPurchaseInformationCowsThatAreNotSold();
+	}
+
 }

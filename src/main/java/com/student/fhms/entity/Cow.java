@@ -130,6 +130,13 @@ public class Cow {
 	public void setCowPictures(List<CowPicture> cowPictures) {
 		this.cowPictures = cowPictures;
 	}
+	public CowPicture getLastPicture(){
+		if(cowPictures!=null){
+			int size=cowPictures.size();
+			return cowPictures.get(size-1);
+		}
+		return null;
+	}
 	
 	
 

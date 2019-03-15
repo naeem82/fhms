@@ -16,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 
@@ -26,18 +28,19 @@ public class Purchase {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
-	@OneToOne(fetch=FetchType.LAZY,cascade={CascadeType.DETACH,
+	@OneToOne(fetch=FetchType.EAGER,cascade={CascadeType.DETACH,
 											CascadeType.MERGE,
 											CascadeType.PERSIST,
 											CascadeType.REFRESH})
 	@JoinColumn(name="customer_id")
 	private Customer customer;
-	@OneToMany(fetch=FetchType.LAZY,cascade={CascadeType.DETACH,
+	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.DETACH,
 											 CascadeType.MERGE,
 											 CascadeType.PERSIST,
 											 CascadeType.REFRESH})
 	@JoinColumn(name="purchase_id")
 	private List<Cow> cows;
+	@Temporal(TemporalType.DATE)
 	@Column(name="purchase_date")
 	private Date purchaseDate;
 	@Column(name="price")

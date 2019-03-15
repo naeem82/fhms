@@ -1,6 +1,7 @@
 package com.student.fhms.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,12 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.student.fhms.dto.FileBucket;
 import com.student.fhms.entity.Cow;
 import com.student.fhms.entity.CowPicture;
 import com.student.fhms.service.CowPictureService;
 import com.student.fhms.service.CowService;
+
+
 
 @Controller
 public class CowPictureController {
@@ -23,24 +27,25 @@ public class CowPictureController {
 	private CowService cowService;
 	
 	@GetMapping("/showCowPictureForm")
-	public String showCowPictureForm(Model theModel){
+	public String showCowPictureForm(@RequestParam("cowId")int cowId,Model theModel){
+		Cow cow=cowService.getCow(cowId);
+		CowPicture cowPicture=cow.getLastPicture();
 		FileBucket fileBucket=new FileBucket();
+		fileBucket.setBase64ImageFile(cowPicture.getBase64imageFile());
+		fileBucket.setCowId(cowId);
 		theModel.addAttribute("fileBucket", fileBucket);
 		
 		return "cow-picture-form";
 	}
 	@PostMapping("/addCowPicture")
-	public String addCowPicture(@ModelAttribute("fileBucket")  FileBucket bucket){
+	public String addCowPicture(@ModelAttribute("fileBucket")  FileBucket bucket,Model model){
 		
 		
 		saveCowPicture(bucket);
 		
-		System.out.println("File Name :"+bucket.getFile().getOriginalFilename());
-		System.out.println("File size :"+bucket.getFile().getSize()/1024);
-		System.out.println("File size :"+bucket.getFile().getContentType());
-		System.out.println("File Description :"+bucket.getDescription());
-		
-		return "cow-picture-form";
+		List<Cow> cows=cowService.getCows();
+		model.addAttribute("cows", cows);
+		return "list-cow-pictures";
 	}
 	public void saveCowPicture(FileBucket bucket){
 		
@@ -53,10 +58,9 @@ public class CowPictureController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Cow cow=new Cow("777","born","red", 7, "MALE", null);
+		Cow cow=cowService.getCow(bucket.getCowId());
 		cow.add(cowPicture);
-		cowPicture.setFilePath("abc");
-		cow.add(cowPicture);
+		
 		//cowPictureService.saveCowPicture(cowPicture);
 		cowService.saveCow(cow);
 	}
@@ -65,6 +69,29 @@ public class CowPictureController {
 		CowPicture cowPicture=cowPictureService.getCowPicture(1);
 		model.addAttribute("cowPicture", cowPicture);
 		return "cow-picture-response";
+	}
+	@GetMapping("/showCowsWithPicture")
+	public String showCowsWithPicture(Model model){
+		List<Cow> cows=cowService.getCows();
+		model.addAttribute("cows", cows);
+		
+		return "list-cow-pictures";
+	}
+	@GetMapping("/viewSingleCowPictures")
+	public String viewSingleCowPictures(@RequestParam("cowId")int cowId,Model model){
+	List<CowPicture> cowPictures=cowPictureService.getPicturesByCowId(cowId);	
+		System.out.println("--------------viewSingleCowPictures------------:"+cowPictures.size());
+		model.addAttribute("cowPictures", cowPictures);
+		model.addAttribute("cowId", cowId);
+		return "view-single-cow-pictures";
+	}
+	@GetMapping("/deleteCowPicture")
+	public String deleteCowPicture(@RequestParam("pictureId") int pictureId,
+			@RequestParam("cowId") int cowId,Model model){
+		model.addAttribute("cowId", cowId);
+		cowPictureService.deleteCowPicture(pictureId);
+		//List<CowPicture> cowPictures=cowPictureService.getPicturesByCowId(cowId);
+		return "redirect:/viewSingleCowPictures";
 	}
 
 }

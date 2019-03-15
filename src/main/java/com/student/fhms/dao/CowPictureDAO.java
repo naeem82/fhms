@@ -11,5 +11,6 @@ public interface CowPictureDAO {
 	public void saveCowPicture(CowPicture cowPicture);
 	public void deleteCowPicture(int id);
 	public List<CowPicture> searchCowPicture(String theSearchName);
+	public List<CowPicture> getPicturesByCowId(int cowId);
 
 }

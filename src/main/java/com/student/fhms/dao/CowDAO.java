@@ -12,5 +12,6 @@ public interface CowDAO {
 	public List<Cow> searchCow(String theSearchName);
 	public List<Cow> getPurchasedCows();
 	public List<Cow> getSaleableCows();
+	public List<Cow> getPurchasedButNotSoldCows();
 
 }

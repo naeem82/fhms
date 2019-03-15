@@ -8,36 +8,39 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.student.fhms.entity.Cow;
 import com.student.fhms.entity.CowPicture;
+
 @Repository
 public class CowPictureDAOImpl implements CowPictureDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
+
 	@Override
 	public List<CowPicture> getCowPictures() {
-		Session session=sessionFactory.getCurrentSession();
-		Query<CowPicture> query=session.createQuery("from CowPicture",CowPicture.class);
-		List<CowPicture> cowPictures=query.getResultList();
+		Session session = sessionFactory.getCurrentSession();
+		Query<CowPicture> query = session.createQuery("from CowPicture", CowPicture.class);
+		List<CowPicture> cowPictures = query.getResultList();
 		return cowPictures;
 	}
 
 	@Override
 	public CowPicture getCowPicture(int id) {
-		Session session=sessionFactory.getCurrentSession();
-		CowPicture cowPicture=session.get(CowPicture.class, id);
+		Session session = sessionFactory.getCurrentSession();
+		CowPicture cowPicture = session.get(CowPicture.class, id);
 		return cowPicture;
 	}
 
 	@Override
 	public void saveCowPicture(CowPicture cowPicture) {
-		Session session=sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(cowPicture);
 	}
 
 	@Override
 	public void deleteCowPicture(int id) {
-		Session session=sessionFactory.getCurrentSession();
-		Query query=session.createQuery("delete from CowPicture where id =:theId");
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("delete from CowPicture where id =:theId");
 		query.setParameter("theId", id);
 		query.executeUpdate();
 	}
@@ -46,6 +49,14 @@ public class CowPictureDAOImpl implements CowPictureDAO {
 	public List<CowPicture> searchCowPicture(String theSearchName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<CowPicture> getPicturesByCowId(int cowId) {
+		Session session = sessionFactory.getCurrentSession();
+		String sql = "Select * from cow_picture where cow_id=" + cowId;
+		List<CowPicture> cowPictures = session.createNativeQuery(sql, CowPicture.class).list();
+		return cowPictures;
 	}
 
 }

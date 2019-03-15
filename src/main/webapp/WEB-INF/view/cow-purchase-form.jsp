@@ -13,12 +13,16 @@
 				</div>
 				<div class="panel-body">
 
-
+					
 
 					<form:form action="performPurchase" method="post"
 						enctype="multipart/form-data" class="form-horizontal"
 						modelAttribute="purchaseDTO">
-
+					
+					<form:hidden path="purchaseId"/>
+					
+					<form:hidden path="customerId"/>
+						
 
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="cow ID">Select
@@ -71,7 +75,7 @@
 							<div class="col-sm-4">
 
 								<form:input type="date" path="purchaseDate" class="form-control"
-									id="purchaseDate" />
+									id="purchaseDate" value="${purchaseDTO.purchaseDate }" />
 							</div>
 						</div>
 						<div class="form-group">

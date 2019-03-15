@@ -47,4 +47,10 @@ public class CowPictureServiceImpl implements CowPictureService {
 		return cowPictureDAO.searchCowPicture(theSearchName);
 	}
 
+	@Override
+	public List<CowPicture> getPicturesByCowId(int cowId) {
+		
+		return cowPictureDAO. getPicturesByCowId(cowId);
+	}
+
 }

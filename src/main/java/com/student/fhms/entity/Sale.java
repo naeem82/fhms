@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="sale")
@@ -36,6 +38,7 @@ public class Sale {
 											 CascadeType.REFRESH})
 	@JoinColumn(name="sale_id")
 	private List<Cow> cows;
+	@Temporal(TemporalType.DATE)
 	@Column(name="sale_date")
 	private Date saleDate;
 	@Column(name="sale_price")

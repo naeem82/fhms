@@ -8,6 +8,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.student.fhms.entity.Cow;
 import com.student.fhms.entity.Purchase;
 
 @Repository
@@ -53,5 +54,13 @@ public class PurchaseDAOImpl implements PurchaseDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public List<Purchase> getPurchaseInformationCowsThatAreNotSold(){
+		Session session=sessionFactory.getCurrentSession();
+		String query="select p.id,p.purchase_date,p.description,p.price,p.customer_id "+
+					 "from purchase p ,cow c "+
+					 "where p.id=c.purchase_id "+
+					 "and c.sale_id is null";
+		List<Purchase> purchases = session.createNativeQuery(query, Purchase.class).list();
+		return purchases;
+	}
 }
