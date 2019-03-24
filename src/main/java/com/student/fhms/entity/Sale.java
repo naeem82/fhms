@@ -32,7 +32,7 @@ public class Sale {
 	@JoinColumn(name="customer_id")	
 	private Customer customer;
 	
-	@OneToMany(fetch=FetchType.LAZY,cascade={CascadeType.DETACH,
+	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.DETACH,
 											 CascadeType.MERGE,
 											 CascadeType.PERSIST,
 											 CascadeType.REFRESH})

@@ -13,5 +13,6 @@ public interface CowDAO {
 	public List<Cow> getPurchasedCows();
 	public List<Cow> getSaleableCows();
 	public List<Cow> getPurchasedButNotSoldCows();
+	public List<Cow> getCowsInSystemYetNotSold();
 
 }

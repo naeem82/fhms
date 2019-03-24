@@ -1,0 +1,6 @@
+Age and Date
+ Age can be null in case we enter date
+ If we choose date the age automatically Goes to invisible  and vice versa
+ when we enter age  it automatically enter current date
+ 
+ When we enter date the age field should remain empty.

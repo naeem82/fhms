@@ -1,11 +1,21 @@
 package com.student.fhms.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +38,18 @@ public class PurchaseController {
 	@Autowired
 	private PurchaseService purchaseService;
 	
+	
+	@InitBinder
+	public void initBinder(WebDataBinder dataBinder){
+		StringTrimmerEditor stringTrimmerEditor=new StringTrimmerEditor(true);
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+		CustomDateEditor dateEditor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+		dataBinder.registerCustomEditor(Date.class, dateEditor);
+		
+
+		
+	}
+	
 	@GetMapping("/showPurchaseList")
 	public String showPurchaseList(Model model){
 		List<Purchase> purchases=purchaseService.getPurchaseInformationCowsThatAreNotSold();
@@ -40,28 +62,38 @@ public class PurchaseController {
 		// get Purchased Cow List
 		List<Cow> purchasedCows=cowService.getPurchasedCows();
 		// set to model so that form can be populate with purchased cows
+		model.addAttribute("cows",purchasedCows);
+		
 		PurchaseDTO purchaseDTO=new PurchaseDTO();
 		model.addAttribute("purchaseDTO", purchaseDTO);
 		
-		model.addAttribute("cows",purchasedCows);
+		
 		return "cow-purchase-form";
 		
 	}
 	@PostMapping("/performPurchase")
-	public String performPurchase(@ModelAttribute("purchaseDTO") PurchaseDTO purchaseDTO,Model model){
+	public String performPurchase(@Valid @ModelAttribute("purchaseDTO") PurchaseDTO purchaseDTO,BindingResult bindingResult,Model model){
+		if(bindingResult.hasErrors()){
+			// get Purchased Cow List
+			List<Cow> purchasedCows=cowService.getPurchasedCows();
+			// set to model so that form can be populate with purchased cows
+			model.addAttribute("cows",purchasedCows);
+			
+			return "cow-purchase-form";
+		}
 		Cow cow=cowService.getCow(purchaseDTO.getCowId());
 		
 		
 		// Saving Customer Information
 		Customer customer=purchaseDTO.getCustomer();
-		customerService.saveCustomer(customer);
+	//remove customerService.saveCustomer(customer);
 		
 		
 		// Saving Purchase information
 		Purchase purchase=purchaseDTO.getPurchase();
 		purchase.setCustomer(customer);
 		purchase.addCow(cow);
-		purchaseService.savePurchase(purchase);
+	//remove	purchaseService.savePurchase(purchase);
 		return "redirect:/showPurchaseList";
 	}
 	
@@ -78,7 +110,8 @@ public class PurchaseController {
 		purchaseDTO.fillDTO(purchase, customer, cowId);
 		model.addAttribute("purchaseDTO", purchaseDTO);
 		
-		// Purchase able cow + Selcted Purchase Cow
+		// Purchase able cow + Selcted Purchase Cow(in case we want to change cow)
+		
 		List<Cow> purchasedCows=cowService.getPurchasedButNotSoldCows();
 		//purchasedCows.add(0, cow);
 		model.addAttribute("cows",purchasedCows);

@@ -90,4 +90,12 @@ public class CowDAOImpl implements CowDAO {
 		return cows;
 	}
 
+	@Override
+	public List<Cow> getCowsInSystemYetNotSold() {
+		Session session = sessionFactory.getCurrentSession();
+		String sql="select * from cow where sale_id is null;";
+		List<Cow> cows = session.createNativeQuery(sql, Cow.class).list();
+		return cows;
+	}
+
 }

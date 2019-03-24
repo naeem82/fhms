@@ -1,11 +1,20 @@
 package com.student.fhms.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +33,19 @@ public class CowController {
 	private MultipartFile fileCopy;
 	@Autowired
 	private  CowService cowService;
+	@InitBinder
+	public void initBinder(WebDataBinder dataBinder){
+		StringTrimmerEditor stringTrimmerEditor=new StringTrimmerEditor(true);
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+		CustomDateEditor dateEditor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+		dataBinder.registerCustomEditor(Date.class, dateEditor);
+		
+	}
 	
 	@GetMapping("/showCows")
 	public String showCows(Model model){
-		List<Cow> cows=cowService.getCows();
+		//List<Cow> cows=cowService.getCows();
+		List<Cow> cows=cowService.getCowsInSystemYetNotSold();
 		model.addAttribute("cows",cows);
 		return "list-cows";
 	}
@@ -39,9 +57,17 @@ public class CowController {
 		return "cow-form-add";
 	}
 	@PostMapping("/addCow")
-	public String addCow(@ModelAttribute("cowAndPictureDTO") CowAndPictureDTO dto){
-		Cow cow=dto.getCow();
+	public String addCow(@Valid @ModelAttribute("cowAndPictureDTO") CowAndPictureDTO dto,BindingResult bindingResult){
 		
+		if(bindingResult.hasErrors()){
+			System.out.println("Binding Result :----------------------------->"+bindingResult);
+			return "cow-form-add";
+		}
+		
+		if(dto.getFile().getSize()==0){
+			dto.setFile(fileCopy);
+		}
+		Cow cow=dto.getCow();
 		CowPicture cowPicture=dto.getCowPicture();
 		cow.add(cowPicture);
 		cowService.saveCow(cow);
@@ -75,7 +101,7 @@ public class CowController {
 		theModel.addAttribute("cowAndPictureDTO", dto);
 				
 		
-		return "cow-form-update";
+		return "cow-form-add";
 	}
 	
 	@GetMapping("/deleteCow")

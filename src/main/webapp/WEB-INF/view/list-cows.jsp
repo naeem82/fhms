@@ -3,7 +3,7 @@
 
 <div id="container">
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
+		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<b>Cow List</b>
@@ -24,8 +24,9 @@
 					<!-- add html table -->
 					<table class="table table-striped">
 						<tr>
-							<th>NO</th>
+							<th>Cow</th>
 							<th>Color</th>
+							<th>Actual Age</th>
 							<th>Age</th>
 							<th>Gender</th>
 							<th>DOB</th>
@@ -45,8 +46,11 @@
 							</c:url>
 
 							<tr>
-								<td><%=++count%></td>
+								<td><img
+									src="data:image/jpeg;base64,${cow.getLastPicture().base64imageFile}"
+									width="100" height="100" /></td>
 								<td>${cow.color}</td>
+								<td>${cow.getDobInYear()}</td>
 								<td>${cow.age}</td>
 								<td>${cow.gender}</td>
 								<td>${cow.dob}</td>

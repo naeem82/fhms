@@ -17,7 +17,7 @@
 					</form:form>
 
 					<!-- Add button to perform purchase -->
-					<input type="button" value="Purchase Cow"
+					<input type="button" value="Sale Cow"
 						onclick="window.location.href='showSaleForm'" ,return
 						false;
 		class="btn btn-success" />
@@ -26,33 +26,33 @@
 						<tr>
 							<th>Cow</th>
 							<th>Tag No</th>
-							<th>Purchase Date</th>
+							<th>Sale Date</th>
 							<th>Description</th>
 							<th>Price</th>
 							<th>Action</th>
 						</tr>
 						
-						<c:forEach var="purchase" items="${purchases}">
+						<c:forEach var="sale" items="${sales}">
 							<!--  URL for update Link -->
-							<c:url var="updateLink" value="/showPurchaseUpdateForm">
-								<c:param name="purchaseId" value="${purchase.id}" />
-								<c:param name="cowId" value="${purchase.getCows().get(0).id}" />
+							<c:url var="updateLink" value="/showSaleUpdateForm">
+								<c:param name="saleId" value="${sale.id}" />
+								<c:param name="cowId" value="${sale.getCows().get(0).id}" />
 							</c:url>
 							<!--  URL for Delete Link -->
-							<c:url var="deleteLink" value="/deletePurchase">
-								<c:param name="purchaseId" value="${purchase.id}" />
+							<c:url var="deleteLink" value="/deleteSale">
+								<c:param name="saleId" value="${sale.id}" />
 							</c:url>
 
 							<tr>
-								<td><img src="data:image/jpeg;base64,${purchase.getCows().get(0).getLastPicture().base64imageFile}" width="150" height="100"></td>
-								<td>${purchase.getCows().get(0).cowTagNo}</td>
+								<td><img src="data:image/jpeg;base64,${sale.getCows().get(0).getLastPicture().base64imageFile}" width="150" height="100"></td>
+								<td>${sale.getCows().get(0).cowTagNo}</td>
 								
-								<td>${purchase.purchaseDate}</td>
-								<td>${purchase.description}</td>
-								<td>${purchase.price}</td>
+								<td>${sale.saleDate}</td>
+								<td>${sale.description}</td>
+								<td>${sale.salePrice}</td>
 								<td><a href="${updateLink}" class="btn btn-success">Update</a>
 									| <a href="${deleteLink}" class="btn btn-success"
-									onclick="if(!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
+									onclick="if(!(confirm('Are you sure you want to delete this Sale Transaction?'))) return false">Delete</a>
 								</td>
 
 							</tr>

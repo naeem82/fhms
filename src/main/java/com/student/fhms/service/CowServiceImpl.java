@@ -66,4 +66,12 @@ public class CowServiceImpl implements CowService {
 		return cowDAO.getPurchasedButNotSoldCows();
 	}
 
+	@Override
+	@Transactional
+	public List<Cow> getCowsInSystemYetNotSold() {
+		
+		// TODO Auto-generated method stub
+		return cowDAO.getCowsInSystemYetNotSold();
+	}
+
 }

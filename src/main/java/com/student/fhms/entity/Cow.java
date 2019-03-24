@@ -1,6 +1,9 @@
 package com.student.fhms.entity;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -137,7 +140,18 @@ public class Cow {
 		}
 		return null;
 	}
-	
+	public String getDobInYear(){
+		Calendar c=Calendar.getInstance();
+	    c.setTime(dob);
+	     int year=c.get(Calendar.YEAR);
+	     int month=c.get(Calendar.MONTH)+1;
+	     int date=c.get(Calendar.DATE);
+	    LocalDate localDob = LocalDate.of(year, month, date);
+	    LocalDate now1 = LocalDate.now();
+	    Period diff1 = Period.between(localDob, now1);
+	    String result=age+diff1.getYears()+" (years) "+diff1.getMonths()+" (Months) "+diff1.getDays()+" (days)";
+	    return result;
+	}
 	
 
 }
