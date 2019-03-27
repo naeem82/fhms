@@ -86,14 +86,14 @@ public class PurchaseController {
 		
 		// Saving Customer Information
 		Customer customer=purchaseDTO.getCustomer();
-	//remove customerService.saveCustomer(customer);
+	    customerService.saveCustomer(customer);
 		
 		
 		// Saving Purchase information
 		Purchase purchase=purchaseDTO.getPurchase();
 		purchase.setCustomer(customer);
 		purchase.addCow(cow);
-	//remove	purchaseService.savePurchase(purchase);
+	    purchaseService.savePurchase(purchase);
 		return "redirect:/showPurchaseList";
 	}
 	

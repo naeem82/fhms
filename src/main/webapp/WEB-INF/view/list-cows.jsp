@@ -54,9 +54,12 @@
 								<td>${cow.age}</td>
 								<td>${cow.gender}</td>
 								<td>${cow.dob}</td>
-								<td><a href="${updateLink}" class="btn btn-success">Update</a>
+								<td>
+								<security:authorize access="hasRole('ADMIN')">
+								<a href="${updateLink}" class="btn btn-success">Update</a>
 									| <a href="${deleteLink}" class="btn btn-success"
 									onclick="if(!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
+								</security:authorize>
 								</td>
 
 							</tr>

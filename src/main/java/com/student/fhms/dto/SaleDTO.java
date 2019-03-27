@@ -18,7 +18,7 @@ public class SaleDTO {
 	private int saleId;
 	@NotNull(message="Select Cow")
 	private Integer cowId;
-	private Integer customerId;
+	private int customerId;
 	@NotNull(message="Enter NIC Card")
 	private String nic;
 	@NotNull(message="Enter First Name")
@@ -75,11 +75,11 @@ public class SaleDTO {
 		this.cowId = cowId;
 	}
 
-	public Integer getCustomerId() {
+	public int getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Integer customerId) {
+	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
 

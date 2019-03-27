@@ -24,7 +24,8 @@
 						<form:hidden path="saleId" />
 						<form:hidden path="customerId" />
 
-
+						<fieldset class="scheduler-border">
+							<legend class="scheduler-border"> Cow</legend>
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="cow ID">Select
 								Cow:</label>
@@ -38,7 +39,9 @@
 								<form:errors path="cowId" cssClass="error" />
 							</div>
 						</div>
-
+						</fieldset>
+						<fieldset class="scheduler-border">
+							<legend class="scheduler-border"> Customer Information</legend>
 
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="nic">NIC:</label>
@@ -77,6 +80,9 @@
 									placeholder="Enter Address" />
 							</div>
 						</div>
+						</fieldset>
+						<fieldset class="scheduler-border">
+							<legend class="scheduler-border"> Sale Information</legend>
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="saleDate">Sale
 								Date:</label>
@@ -107,7 +113,7 @@
 									placeholder="Enter Purchase related Description if any" />
 							</div>
 						</div>
-
+						</fieldset>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<div class="container">

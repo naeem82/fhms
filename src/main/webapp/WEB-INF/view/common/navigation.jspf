@@ -1,3 +1,4 @@
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <nav role="navigation" class="navbar navbar-default">
  <div class="">
   <a href="${pageContext.request.contextPath}/showCowPicture" class="navbar-brand">Show Cow Picture</a>
@@ -7,11 +8,16 @@
           <li class="active"><a href="${pageContext.request.contextPath }/">Home</a></li>
           <li><a href="${pageContext.request.contextPath}/showCows">Cows</a></li>
           <li><a href="${pageContext.request.contextPath}/showCowsWithPicture">Cow Picture</a></li>
-          <li><a href="${pageContext.request.contextPath}/showSaleList">Sale </a></li>
           <li><a href="${pageContext.request.contextPath}/showPurchaseList">Purchase </a></li>
+          <li><a href="${pageContext.request.contextPath}/showSaleList">Sale </a></li>
+          
      </ul>
      <ul class="nav navbar-nav navbar-right">
-         <li><a href="/logout">Logout</a></li>
+         <li><form:form action="${pageContext.request.contextPath}/logout" method="post">
+         
+         <button type="submit"  class="btn btn-default btn-lg" style="border:none;background: none;">
+         <span class="glyphicon glyphicon-log-out" >Logout</span></button>
+         </form:form></li>
      </ul>
  </div>
 </nav>

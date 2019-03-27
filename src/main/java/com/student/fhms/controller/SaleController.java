@@ -82,13 +82,14 @@ public class SaleController {
 		 
 		// Get and save Customer information
 		Customer customer=saleDTO.getCustomer();
-	//remove	customerService.saveCustomer(customer);
+		customerService.saveCustomer(customer);
 		
 		//  Get and save sale information
 		Sale sale=saleDTO.getSale();
+		System.out.println("----------------performSale()"+customer.getId());
 		sale.setCustomer(customer);
 		sale.addCow(cow);
-	//remove  saleService.saveSale(sale);
+	    saleService.saveSale(sale);
 		
 		return "redirect:/showSaleList";
 	}

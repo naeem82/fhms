@@ -1,5 +1,5 @@
-<%@ include file="common/header.jspf" %>
-<%@ include file="common/navigation.jspf" %>
+<%@ include file="common/header.jspf"%>
+<%@ include file="common/navigation.jspf"%>
 
 <div id="container">
 	<div class="row">
@@ -17,10 +17,12 @@
 					</form:form>
 
 					<!-- Add button to perform purchase -->
-					<input type="button" value="Sale Cow"
-						onclick="window.location.href='showSaleForm'" ,return
-						false;
+					<security:authorize access="hasRole('ADMIN')">
+						<input type="button" value="Sale Cow"
+							onclick="window.location.href='showSaleForm'" ,return
+							false;
 		class="btn btn-success" />
+					</security:authorize>
 					<!-- add html table -->
 					<table class="table table-striped">
 						<tr>
@@ -31,7 +33,7 @@
 							<th>Price</th>
 							<th>Action</th>
 						</tr>
-						
+
 						<c:forEach var="sale" items="${sales}">
 							<!--  URL for update Link -->
 							<c:url var="updateLink" value="/showSaleUpdateForm">
@@ -44,16 +46,19 @@
 							</c:url>
 
 							<tr>
-								<td><img src="data:image/jpeg;base64,${sale.getCows().get(0).getLastPicture().base64imageFile}" width="150" height="100"></td>
+								<td><img
+									src="data:image/jpeg;base64,${sale.getCows().get(0).getLastPicture().base64imageFile}"
+									width="150" height="100"></td>
 								<td>${sale.getCows().get(0).cowTagNo}</td>
-								
+
 								<td>${sale.saleDate}</td>
 								<td>${sale.description}</td>
 								<td>${sale.salePrice}</td>
-								<td><a href="${updateLink}" class="btn btn-success">Update</a>
+								<td><security:authorize access="hasRole('ADMIN')">
+										<a href="${updateLink}" class="btn btn-success">Update</a>
 									| <a href="${deleteLink}" class="btn btn-success"
-									onclick="if(!(confirm('Are you sure you want to delete this Sale Transaction?'))) return false">Delete</a>
-								</td>
+											onclick="if(!(confirm('Are you sure you want to delete this Sale Transaction?'))) return false">Delete</a>
+									</security:authorize></td>
 
 							</tr>
 
@@ -74,4 +79,4 @@
 
 
 
-<%@ include file="common/footer.jspf" %>
+<%@ include file="common/footer.jspf"%>

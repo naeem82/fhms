@@ -18,10 +18,12 @@
 					</form:form>
 
 					<!-- Add button to perform purchase -->
+					<security:authorize access="hasRole('ADMIN')">
 					<input type="button" value="Purchase Cow"
 						onclick="window.location.href='showPurchaseForm'" ,return
 						false;
 		class="btn btn-success" />
+		</security:authorize>
 					<!-- add html table -->
 					<table class="table table-striped">
 						<tr>
@@ -51,9 +53,12 @@
 								<td>${purchase.purchaseDate}</td>
 								<td>${purchase.description}</td>
 								<td>${purchase.price}</td>
-								<td><a href="${updateLink}" class="btn btn-success">Update</a>
+								<td>
+								<security:authorize access="hasRole('ADMIN')">
+								<a href="${updateLink}" class="btn btn-success">Update</a>
 									| <a href="${deleteLink}" class="btn btn-success"
 									onclick="if(!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
+								</security:authorize>
 								</td>
 
 							</tr>
