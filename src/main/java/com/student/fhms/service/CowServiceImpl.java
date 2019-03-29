@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.student.fhms.dao.CowDAO;
 import com.student.fhms.entity.Cow;
+
 @Service
 public class CowServiceImpl implements CowService {
 	@Autowired
 	private CowDAO cowDAO;
+
 	@Override
 	@Transactional
 	public List<Cow> getCows() {
@@ -48,30 +50,44 @@ public class CowServiceImpl implements CowService {
 	@Override
 	@Transactional
 	public List<Cow> getPurchasedCows() {
-		
+
 		return cowDAO.getPurchasedCows();
 	}
 
 	@Override
 	@Transactional
 	public List<Cow> getSaleableCows() {
-		
+
 		return cowDAO.getSaleableCows();
 	}
 
 	@Override
 	@Transactional
 	public List<Cow> getPurchasedButNotSoldCows() {
-		
+
 		return cowDAO.getPurchasedButNotSoldCows();
 	}
 
 	@Override
 	@Transactional
-	public List<Cow> getCowsInSystemYetNotSold() {
-		
+	public List<Cow> getCowsInSystemYetNotSold(int pageId,int recordsToDisplay) {
+
 		// TODO Auto-generated method stub
-		return cowDAO.getCowsInSystemYetNotSold();
+		return cowDAO.getCowsInSystemYetNotSold(pageId,recordsToDisplay);
+	}
+
+	@Override
+	@Transactional
+	public Cow getCowByTagNo(String tagNo) {
+		
+		return cowDAO.getCowByTagNo(tagNo);
+	}
+
+	@Override
+	@Transactional
+	public long countCowsInSystemYetNotSold() {
+		
+		return cowDAO.countCowsInSystemYetNotSold();
 	}
 
 }

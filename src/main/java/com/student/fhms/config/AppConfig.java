@@ -22,6 +22,7 @@ import com.student.fhms.aop.FHMSLoggingAspect;
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @ComponentScan("com.student.fhms")
+
 public class AppConfig implements WebMvcConfigurer {
 
 	// define a bean for viewResolver

@@ -1,4 +1,4 @@
-package com.student.fhms.config;
+package com.student.fhms.security;
 
 import javax.sql.DataSource;
 
@@ -35,7 +35,7 @@ public class FHMSSecurityConfig extends WebSecurityConfigurerAdapter {
 			//.anyRequest().authenticated()
 			.antMatchers("/").hasRole("EMPLOYEE")
 			//.antMatchers("/leaders/**").hasRole("MANAGER")
-			.antMatchers("/systems/**").hasRole("ADMIN")
+			.antMatchers("/showCowUpdateForm/**").hasRole("ADMIN")
 			.and()
 			.formLogin()
 			.loginPage("/showMyLoginPage")

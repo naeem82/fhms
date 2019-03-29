@@ -6,6 +6,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.hibernate.type.LongType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -84,18 +85,42 @@ public class CowDAOImpl implements CowDAO {
 	@Override
 	public List<Cow> getPurchasedButNotSoldCows() {
 		Session session = sessionFactory.getCurrentSession();
-		String sql = "select * from cow where cow_type='purchased' "+
-					"AND purchase_id is not null and sale_id is null";
+		String sql = "select * from cow where cow_type='purchased' "
+				+ "AND purchase_id is not null and sale_id is null";
 		List<Cow> cows = session.createNativeQuery(sql, Cow.class).list();
 		return cows;
 	}
 
 	@Override
-	public List<Cow> getCowsInSystemYetNotSold() {
+	public List<Cow> getCowsInSystemYetNotSold(int pageId,int recordsToDisplay) {
 		Session session = sessionFactory.getCurrentSession();
-		String sql="select * from cow where sale_id is null;";
+		String sql = "select * from cow where sale_id is null order by id desc Limit "+(pageId-1)+","+recordsToDisplay;
 		List<Cow> cows = session.createNativeQuery(sql, Cow.class).list();
 		return cows;
+	}
+
+	@Override
+	public long countCowsInSystemYetNotSold() {
+		Session session = sessionFactory.getCurrentSession();
+		String countQ = "Select count(c.id) as count from cow c where c.sale_id is null";
+		Query countQuery = session.createNativeQuery(countQ).addScalar("count", LongType.INSTANCE);
+		Long countResults =(Long) countQuery.uniqueResult();
+		return countResults;
+	}
+
+	@Override
+	public Cow getCowByTagNo(String tagNo) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<Cow> query = session.createQuery("from  Cow where cowTagNo=:theTagNo", Cow.class);
+		query.setParameter("theTagNo", tagNo);
+		System.out.println("------------Cow Tag No :" + tagNo);
+		// Cow cow=query.getSingleResult();
+		Cow cow = query.uniqueResult();
+		if (cow != null)
+			System.out.println("------after DB cAll------Cow Tag No :" + cow.getCowTagNo());
+
+		return cow;
+
 	}
 
 }

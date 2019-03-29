@@ -6,7 +6,7 @@
  <div class="navbar-collapse">
      <ul class="nav navbar-nav">
           <li class="active"><a href="${pageContext.request.contextPath }/">Home</a></li>
-          <li><a href="${pageContext.request.contextPath}/showCows">Cows</a></li>
+          <li><a href="${pageContext.request.contextPath}/showCows/1">Cows</a></li>
           <li><a href="${pageContext.request.contextPath}/showCowsWithPicture">Cow Picture</a></li>
           <li><a href="${pageContext.request.contextPath}/showPurchaseList">Purchase </a></li>
           <li><a href="${pageContext.request.contextPath}/showSaleList">Sale </a></li>

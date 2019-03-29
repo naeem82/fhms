@@ -210,18 +210,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <%@ include file="common/footer.jspf"%>
 
 <script type="text/javascript">

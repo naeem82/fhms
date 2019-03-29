@@ -17,13 +17,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.student.fhms.entity.Cow;
 import com.student.fhms.entity.CowPicture;
 import com.student.fhms.utility.CustomeMultipartFile;
+import com.student.fhms.validation.NotDuplicateCowTagNo;
 
 public class CowAndPictureDTO {
 
 	private int id;
 	@NotNull(message = "Enter Cow ID/Tag No")
+	@NotDuplicateCowTagNo(message="Cow with this Tag No already Exist in DB")
 	private String cowTagNo;
 	@NotNull(message = "Select Cow Type")
+	
 	private String cowType;
 	@NotNull(message = "Enter Value")
 	@Pattern(regexp = "[a-zA-Z]+", message = "Enter Color Name")

@@ -13,6 +13,8 @@ public interface CowDAO {
 	public List<Cow> getPurchasedCows();
 	public List<Cow> getSaleableCows();
 	public List<Cow> getPurchasedButNotSoldCows();
-	public List<Cow> getCowsInSystemYetNotSold();
+	public List<Cow> getCowsInSystemYetNotSold(int pageId,int recordsToDisplay);
+	public long countCowsInSystemYetNotSold();
+	public Cow getCowByTagNo(String tagNo);
 
 }

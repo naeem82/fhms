@@ -11,9 +11,9 @@
 
 </div>
 
-<h3>WELCOME in Land of FHMS</h3>
-
-
+<h3>WELCOME To Farm House Management System</h3>
+User Name :<security:authentication property="principal.username"/><br>
+Role(s):<security:authentication property="principal.authorities"/>
 </div>
 
 

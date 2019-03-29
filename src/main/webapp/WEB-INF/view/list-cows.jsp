@@ -1,6 +1,7 @@
 <%@ include file="common/header.jspf"%>
 <%@ include file="common/navigation.jspf"%>
 
+
 <div id="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
@@ -9,7 +10,7 @@
 					<b>Cow List</b>
 				</div>
 				<div class="panel-body">
-					<form:form action="search" method="post">
+					<form:form action="" method="post">
 						<input type="text" name="searchName" />
 						<input type="submit" value="search" class="btn btn-success" />
 
@@ -17,13 +18,15 @@
 					</form:form>
 
 					<!-- Add button to add Customer -->
-					<input type="button" value="Add Cow"
-						onclick="window.location.href='showCowAddForm'" ,return
+					
+					 <input type="button" value="Add Cow"
+						onclick="window.location.href='${pageContext.request.contextPath}/showCowAddForm'" ,return
 						false;
-		class="btn btn-success" />
+		class="btn btn-success" /> 
 					<!-- add html table -->
 					<table class="table table-striped">
 						<tr>
+							
 							<th>Cow</th>
 							<th>Color</th>
 							<th>Actual Age</th>
@@ -46,21 +49,20 @@
 							</c:url>
 
 							<tr>
+								
 								<td><img
 									src="data:image/jpeg;base64,${cow.getLastPicture().base64imageFile}"
-									width="100" height="100" /></td>
+									width="100" height="100" class="cImage" /></td>
 								<td>${cow.color}</td>
 								<td>${cow.getDobInYear()}</td>
 								<td>${cow.age}</td>
 								<td>${cow.gender}</td>
 								<td>${cow.dob}</td>
-								<td>
-								<security:authorize access="hasRole('ADMIN')">
-								<a href="${updateLink}" class="btn btn-success">Update</a>
+								<td><security:authorize access="hasRole('ADMIN')">
+										<a href="${updateLink}" class="btn btn-success">Update</a>
 									| <a href="${deleteLink}" class="btn btn-success"
-									onclick="if(!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
-								</security:authorize>
-								</td>
+											onclick="if(!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
+									</security:authorize></td>
 
 							</tr>
 
@@ -68,13 +70,29 @@
 
 					</table>
 
+					<ul class="pagination pagination-sm">
 
+
+
+						<c:forEach begin="1" end="${totalPages}" varStatus="loop">
+
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.contextPath}/showCows/${loop.index}">${loop.index}</a></li>
+						</c:forEach>
+					</ul>
 
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-</div>
+
 
 <%@include file="common/footer.jspf"%>
+<script>
+$('.cImage').hover(function() {
+	  $(this).css({ width: "250", height: "250" });
+	}).mouseleave( function () {
+	  $(this).css({ width: "100", height: "100" });
+	});
+</script>

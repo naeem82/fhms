@@ -16,6 +16,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,10 +43,29 @@ public class CowController {
 		
 	}
 	
-	@GetMapping("/showCows")
-	public String showCows(Model model){
+	@GetMapping("/showCows/{pageId}")
+	public String showCows(@PathVariable int pageId, Model model){
+//	@GetMapping("/showCows")
+//	public String showCows( Model model){
 		//List<Cow> cows=cowService.getCows();
-		List<Cow> cows=cowService.getCowsInSystemYetNotSold();
+		//System.out.println("----------- Page Id :"+pageId);
+		int recordsToDisplay=5;
+		//pageId=pageId*recordsToDisplay;
+		// because sql use 0 base index
+		if(pageId==1){
+			
+		}else
+		{
+			pageId=(pageId-1)*recordsToDisplay+1;
+		}
+		
+			
+		long totalRecords=cowService.countCowsInSystemYetNotSold();
+		int totalPages=(int)Math.ceil((double)totalRecords/recordsToDisplay);
+		System.out.println("----------- total records :"+totalRecords);
+		System.out.println("----------- total pages :"+totalPages);
+		model.addAttribute("totalPages", totalPages);
+		List<Cow> cows=cowService.getCowsInSystemYetNotSold(pageId,recordsToDisplay);
 		model.addAttribute("cows",cows);
 		return "list-cows";
 	}
@@ -74,19 +94,19 @@ public class CowController {
 		
 		return "redirect:/showCows";
 	}
-	@PostMapping("/updateCow")
-	public String updateCow(@ModelAttribute("cowAndPictureDTO") CowAndPictureDTO dto){
-		if(dto.getFile().getSize()==0){
-			dto.setFile(fileCopy);
-		}
-		Cow cow=dto.getCow();
-		CowPicture cowPicture=dto.getCowPicture();
-		
-		System.out.println("----------------------update cow controller------------------"+cowPicture.getFileName());
-		cow.add(cowPicture);
-		cowService.saveCow(cow);
-		return "redirect:/showCows";
-	}
+//	@PostMapping("/updateCow")
+//	public String updateCow(@ModelAttribute("cowAndPictureDTO") CowAndPictureDTO dto){
+//		if(dto.getFile().getSize()==0){
+//			dto.setFile(fileCopy);
+//		}
+//		Cow cow=dto.getCow();
+//		CowPicture cowPicture=dto.getCowPicture();
+//		
+//		System.out.println("----------------------update cow controller------------------"+cowPicture.getFileName());
+//		cow.add(cowPicture);
+//		cowService.saveCow(cow);
+//		return "redirect:/showCows";
+//	}
 	
 	@GetMapping("/showCowUpdateForm")
 	public String showCowUpdateForm(@RequestParam("cowId") int id ,Model theModel){

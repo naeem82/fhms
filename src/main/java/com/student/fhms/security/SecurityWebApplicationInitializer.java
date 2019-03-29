@@ -1,4 +1,4 @@
-package com.student.fhms.config;
+package com.student.fhms.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
