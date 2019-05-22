@@ -59,7 +59,13 @@
 
 					</table>
 
-
+				<ul class="pagination pagination-sm">
+						<c:forEach begin="1" end="${totalPages}" varStatus="loop">
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.contextPath}/showCowsWithPicture/${loop.index}">${loop.index}</a></li>
+						</c:forEach>
+					</ul>
+				
 
 				</div>
 			</div>

@@ -46,7 +46,7 @@
 							<div class="col-sm-4">
 								<form:input type="text" path="cowTagNo" class="form-control"
 									id="cowTagNo" placeholder="Enter ID Number" required="required" />
-								<form:errors path="cowTagNo" cssClass="error" />
+								<form:errors path="cowTagNo" cssClass="error"  /><span id="TagNoError" class="error"></span>
 							</div>
 						</div>
 						<div class="form-group">
@@ -213,6 +213,27 @@
 <%@ include file="common/footer.jspf"%>
 
 <script type="text/javascript">
+$(document).ready(function(){
+	$("#cowTagNo").change(function(){
+		
+		$.ajax({
+			url:'${pageContext.request.contextPath}/validateCowTagNo',
+			data:{tagNo:$("#cowTagNo").val()},
+			success:function(responseText){
+				$("#TagNoError").text(responseText);
+				if(responseText!=""){
+					$("#cowTagNo").focus();
+				}
+			}
+			
+		});
+	
+		
+	});
+});
+
+
+
 $( document ).ready(function() {
 	var currentValue = $("input[name='ageSelection']:checked").val(); // Get the radio checked value
 	 

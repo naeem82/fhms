@@ -2,12 +2,14 @@ package com.student.fhms.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +23,7 @@ import com.student.fhms.service.CowService;
 
 @Controller
 public class CowPictureController {
+	private Logger logger=Logger.getLogger(CowPictureController.class.getName());
 	@Autowired
 	private CowPictureService cowPictureService;
 	@Autowired
@@ -70,9 +73,24 @@ public class CowPictureController {
 		model.addAttribute("cowPicture", cowPicture);
 		return "cow-picture-response";
 	}
-	@GetMapping("/showCowsWithPicture")
-	public String showCowsWithPicture(Model model){
-		List<Cow> cows=cowService.getCows();
+	@GetMapping("/showCowsWithPicture/{pageId}")
+	public String showCowsWithPicture(@PathVariable int pageId,Model model){
+	   ////////////////////////For Paging//////////////////////////////////////////////
+		int recordsToDisplay=5;
+		logger.info("Default value of Cow Pictures---------------------------:"+pageId);
+		if(pageId==1){
+			
+		}else
+		{
+			pageId=(pageId-1)*recordsToDisplay+1;
+		}
+		long totalRecords=cowService.countCowsInSystemYetNotSold();
+		int totalPages=(int)Math.ceil((double)totalRecords/recordsToDisplay);
+		model.addAttribute("totalPages", totalPages);
+		///////////////////////////////////////////////////////////////////////////////
+		List<Cow> cows=cowService.getCowsInSystemYetNotSold(pageId, recordsToDisplay);
+		
+		logger.info("showCowsWithPicture --------- cow Size :"+cows.size());
 		model.addAttribute("cows", cows);
 		
 		return "list-cow-pictures";
